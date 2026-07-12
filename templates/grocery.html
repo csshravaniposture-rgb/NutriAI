@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Grocery Assistant | NutriAI</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- Sidebar -->
+
+<!-- Sidebar -->
+
+<aside class="sidebar">
+
+    <h2>🥑 NutriAI</h2>
+
+    <ul>
+
+        <li><a href="{{ url_for('dashboard') }}">🏠 Dashboard</a></li>
+
+        <li><a href="{{ url_for('mealplanner') }}">🍽 Meal Planner</a></li>
+
+        <li><a href="{{ url_for('nutrition') }}">🥗 Nutrition Analyzer</a></li>
+
+        <li><a href="{{ url_for('recipe') }}">🍲 Recipe Generator</a></li>
+
+        <li class="active"><a href="{{ url_for('grocery') }}">🛒 Grocery Assistant</a></li>
+
+        <li><a href="{{ url_for('report') }}">📊 Reports</a></li>
+
+        <li><a href="{{ url_for('profile') }}">👤 Profile</a></li>
+
+        <li><a href="{{ url_for('home') }}">🚪 Logout</a></li>
+
+    </ul>
+
+</aside>
+
+<!-- Main -->
+
+<main class="main">
+
+<header class="topbar">
+
+<div>
+
+<h1>🛒 Grocery Assistant</h1>
+
+<p>Create smart grocery lists and estimate your shopping budget.</p>
+
+</div>
+
+</header>
+
+<div class="nutrition-search">
+
+<input type="text" placeholder="Search grocery item...">
+
+<button class="generate-btn">➕ Add Item</button>
+
+</div>
+
+<section class="meal">
+
+<h2>Today's Grocery List</h2>
+
+<div class="meal-box">
+
+<table class="grocery-table">
+
+<tr>
+
+<th>Item</th>
+
+<th>Quantity</th>
+
+<th>Price</th>
+
+</tr>
+
+<tr>
+
+<td>🥚 Eggs</td>
+
+<td>12</td>
+
+<td>₹90</td>
+
+</tr>
+
+<tr>
+
+<td>🍅 Tomatoes</td>
+
+<td>1 kg</td>
+
+<td>₹40</td>
+
+</tr>
+
+<tr>
+
+<td>🍚 Rice</td>
+
+<td>5 kg</td>
+
+<td>₹320</td>
+
+</tr>
+
+<tr>
+
+<td>🥛 Milk</td>
+
+<td>2 L</td>
+
+<td>₹120</td>
+
+</tr>
+
+<tr>
+
+<td>🥕 Carrots</td>
+
+<td>500 g</td>
+
+<td>₹35</td>
+
+</tr>
+
+<tr>
+
+<td colspan="2"><strong>Total Estimated Cost</strong></td>
+
+<td><strong>₹605</strong></td>
+
+</tr>
+
+</table>
+
+</div>
+
+</section>
+
+</main>
+
+</div>
+
+</body>
+
+</html>

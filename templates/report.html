@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Reports | NutriAI</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- Sidebar -->
+
+<aside class="sidebar">
+
+    <h2>🥑 NutriAI</h2>
+
+    <ul>
+
+        <li><a href="{{ url_for('dashboard') }}">🏠 Dashboard</a></li>
+
+        <li><a href="{{ url_for('mealplanner') }}">🍽 Meal Planner</a></li>
+
+        <li><a href="{{ url_for('nutrition') }}">🥗 Nutrition Analyzer</a></li>
+
+        <li><a href="{{ url_for('recipe') }}">🍲 Recipe Generator</a></li>
+
+        <li><a href="{{ url_for('grocery') }}">🛒 Grocery Assistant</a></li>
+
+        <li class="active"><a href="{{ url_for('report') }}">📊 Reports</a></li>
+
+        <li><a href="{{ url_for('profile') }}">👤 Profile</a></li>
+
+        <li><a href="{{ url_for('home') }}">🚪 Logout</a></li>
+
+    </ul>
+
+</aside>
+
+<!-- Main -->
+
+<main class="main">
+
+<header class="topbar">
+
+<div>
+
+<h1>📊 Health Reports</h1>
+
+<p>Your nutrition progress and health insights.</p>
+
+</div>
+
+</header>
+
+<div class="cards">
+
+<div class="card">
+<h3>🔥 Calories</h3>
+<h2>1820 kcal</h2>
+</div>
+
+<div class="card">
+<h3>💧 Water</h3>
+<h2>2.3 L</h2>
+</div>
+
+<div class="card">
+<h3>⚖ Weight</h3>
+<h2>64 kg</h2>
+</div>
+
+<div class="card">
+<h3>📏 BMI</h3>
+<h2>22.4</h2>
+</div>
+
+</div>
+
+<section class="meal">
+
+<h2>📈 Weekly Progress</h2>
+
+<div class="meal-box">
+
+<p>Calories Goal</p>
+
+<div class="progress">
+<div class="progress-fill" style="width:80%"></div>
+</div>
+
+<br>
+
+<p>Water Intake</p>
+
+<div class="progress">
+<div class="progress-fill" style="width:70%"></div>
+</div>
+
+<br>
+
+<p>Protein Intake</p>
+
+<div class="progress">
+<div class="progress-fill" style="width:90%"></div>
+</div>
+
+<br>
+
+<p>Exercise Goal</p>
+
+<div class="progress">
+<div class="progress-fill" style="width:60%"></div>
+</div>
+
+</div>
+
+</section>
+
+<section class="tip">
+
+<h2>🤖 AI Health Summary</h2>
+
+<p>
+
+Great work! 🎉
+
+Your calorie intake is within the recommended range.
+
+Increase your water intake slightly and maintain regular exercise to achieve your health goals.
+
+</p>
+
+</section>
+
+</main>
+
+</div>
+
+</body>
+
+</html>

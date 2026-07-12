@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Meal Planner | NutriAI</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- Sidebar -->
+
+   <aside class="sidebar">
+
+    <h2>🥑 NutriAI</h2>
+
+    <ul>
+
+        <li><a href="{{ url_for('dashboard') }}">🏠 Dashboard</a></li>
+
+        <li class="active"><a href="{{ url_for('mealplanner') }}">🍽 Meal Planner</a></li>
+
+        <li><a href="{{ url_for('nutrition') }}">🥗 Nutrition Analyzer</a></li>
+
+        <li><a href="{{ url_for('recipe') }}">🍲 Recipe Generator</a></li>
+
+        <li><a href="{{ url_for('grocery') }}">🛒 Grocery Assistant</a></li>
+
+        <li><a href="{{ url_for('report') }}">📊 Reports</a></li>
+
+        <li><a href="{{ url_for('profile') }}">👤 Profile</a></li>
+
+        <li><a href="{{ url_for('home') }}">🚪 Logout</a></li>
+
+    </ul>
+
+</aside>
+    <!-- Main Content -->
+
+    <main class="main">
+
+        <header class="topbar">
+
+            <div>
+
+                <h1>🍽 AI Meal Planner</h1>
+
+                <p>Create a healthy meal plan according to your lifestyle.</p>
+
+            </div>
+
+        </header>
+
+        <!-- Planner Form -->
+
+        <section class="meal-form">
+
+            <div class="card">
+
+                <h3>🎯 Fitness Goal</h3>
+
+                <select>
+
+                    <option>Weight Loss</option>
+
+                    <option>Weight Gain</option>
+
+                    <option>Muscle Gain</option>
+
+                    <option>Maintain Weight</option>
+
+                </select>
+
+            </div>
+
+            <div class="card">
+
+                <h3>🥗 Diet Preference</h3>
+
+                <select>
+
+                    <option>Vegetarian</option>
+
+                    <option>Non-Vegetarian</option>
+
+                    <option>Vegan</option>
+
+                    <option>Eggetarian</option>
+
+                </select>
+
+            </div>
+
+            <div class="card">
+
+                <h3>💰 Daily Budget</h3>
+
+                <input type="number" placeholder="₹ 300">
+
+            </div>
+
+            <div class="card">
+
+                <h3>🍴 Meals Per Day</h3>
+
+                <select>
+
+                    <option>3 Meals</option>
+
+                    <option>4 Meals</option>
+
+                    <option>5 Meals</option>
+
+                </select>
+
+            </div>
+
+            <button class="generate-btn">Generate Meal Plan</button>
+
+        </section>
+
+        <!-- Sample Meal Plan -->
+
+        <section class="meal">
+
+            <h2>Today's AI Meal Plan</h2>
+
+            <div class="meal-box">
+
+                <p>🍳 <strong>Breakfast:</strong> Oats + Banana + Milk</p>
+
+                <p>🥗 <strong>Lunch:</strong> Brown Rice + Dal + Salad</p>
+
+                <p>🍎 <strong>Snack:</strong> Apple + Almonds</p>
+
+                <p>🍛 <strong>Dinner:</strong> Chapati + Paneer + Vegetables</p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+</body>
+
+</html>

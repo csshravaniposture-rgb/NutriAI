@@ -1,0 +1,164 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Register | NutriAI</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="register-container">
+
+<div class="register-box">
+
+<h1>🥑 NutriAI</h1>
+
+<h2>Create Your Account</h2>
+
+<p>Start your healthy lifestyle journey today.</p>
+
+<form action="/register" method="POST">
+
+<div class="input-group">
+
+<label>Full Name</label>
+
+<input
+type="text"
+name="name"
+placeholder="Enter your full name"
+required>
+
+</div>
+
+<div class="input-group">
+
+<label>Email</label>
+
+<input
+type="email"
+name="email"
+placeholder="Enter your email"
+required>
+
+</div>
+
+<div class="input-group">
+
+<label>Password</label>
+
+<input
+type="password"
+name="password"
+placeholder="Create a password"
+required>
+
+</div>
+
+<div class="input-group">
+
+<label>Age</label>
+
+<input
+type="number"
+name="age"
+required>
+
+</div>
+
+<div class="input-group">
+
+<label>Height (cm)</label>
+
+<input
+type="number"
+name="height"
+required>
+
+</div>
+
+<div class="input-group">
+
+<label>Weight (kg)</label>
+
+<input
+type="number"
+name="weight"
+required>
+
+</div>
+
+<div class="input-group">
+
+<label>Diet Preference</label>
+
+<select name="diet">
+
+<option value="Vegetarian">🥗 Vegetarian</option>
+
+<option value="Non-Vegetarian">🍗 Non-Vegetarian</option>
+
+<option value="Vegan">🌱 Vegan</option>
+
+<option value="Jain">🟢 Jain</option>
+
+</select>
+
+</div>
+
+<div class="input-group">
+
+<label>Fitness Goal</label>
+
+<select name="goal">
+
+<option>Weight Loss</option>
+
+<option>Weight Gain</option>
+
+<option>Muscle Gain</option>
+
+<option>Healthy Lifestyle</option>
+
+</select>
+
+</div>
+
+<button type="submit">
+
+Create Account
+
+</button>
+
+</form>
+
+<div class="bottom-text">
+
+Already have an account?
+
+<a href="/login">
+
+Login
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+
+</html>
+```

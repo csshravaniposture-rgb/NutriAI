@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard | NutriAI</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- Sidebar -->
+
+    <aside class="sidebar">
+
+        <h2>🥑 NutriAI</h2>
+
+        <ul>
+
+            <li><a href="/dashboard">🏠 Dashboard</a></li>
+<li><a href="/mealplanner">🍽 Meal Planner</a></li>
+<li><a href="/nutrition">🥗 Nutrition Analyzer</a></li>
+<li><a href="/recipe">🍲 Recipe Generator</a></li>
+<li><a href="/grocery">🛒 Grocery Assistant</a></li>
+<li><a href="/report">📊 Reports</a></li>
+<li><a href="/profile">👤 Profile</a></li>
+<li><a href="/">🚪 Logout</a></li>
+
+        </ul>
+
+    </aside>
+
+    <!-- Main Content -->
+
+    <main class="main">
+
+        <!-- Top Bar -->
+
+        <header class="topbar">
+
+            <div>
+
+                <h1>Hello, {{ user.name }} 👋</h1>
+
+                <p>Welcome back, {{ user.name }}! Here's your health summary today.</p>
+
+            </div>
+
+            <div class="top-right">
+
+                <input type="text" placeholder="🔍 Search...">
+
+                <div class="notify">🔔</div>
+
+
+            </div>
+
+        </header>
+
+        <!-- Summary Cards -->
+
+        <section class="cards">
+
+            <div class="card">
+
+                <div class="card-icon">🔥</div>
+
+                <h3>Calories</h3>
+
+                <h2>1650 kcal</h2>
+
+            </div>
+
+            <div class="card">
+
+                <div class="card-icon">💧</div>
+
+                <h3>Water</h3>
+
+                <h2>6 / 8 Glasses</h2>
+
+            </div>
+
+            <div class="card">
+
+                <div class="card-icon">🚶</div>
+
+                <h3>Steps</h3>
+
+                <h2>7,500</h2>
+
+            </div>
+
+            <div class="card">
+
+                <div class="card-icon">⚖</div>
+
+                <h3>BMI</h3>
+
+                <h2>22.1</h2>
+
+            </div>
+
+        </section>
+
+        <!-- Quick Actions -->
+
+        <section class="quick">
+
+            <h2>⚡ Quick Actions</h2>
+
+            <div class="quick-grid">
+
+                <div class="action">
+                    🍽<br><br>
+                    Meal Planner
+                </div>
+
+                <div class="action">
+                    🥗<br><br>
+                    Nutrition Analyzer
+                </div>
+
+                <div class="action">
+                    🍲<br><br>
+                    Recipe Generator
+                </div>
+
+                <div class="action">
+                    🛒<br><br>
+                    Grocery Assistant
+                </div>
+
+                <div class="action">
+                    📊<br><br>
+                    Reports
+                </div>
+
+                <div class="action">
+                    👤<br><br>
+                    Profile
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Meal Plan -->
+
+        <section class="meal">
+
+            <h2>🍽 Today's Meal Plan</h2>
+
+            <div class="meal-box">
+
+                <p>🍳 <strong>Breakfast:</strong> Oats + Banana Smoothie</p>
+
+                <p>🥗 <strong>Lunch:</strong> Brown Rice + Paneer + Salad</p>
+
+                <p>🍎 <strong>Snack:</strong> Apple + Almonds</p>
+
+                <p>🍛 <strong>Dinner:</strong> Chapati + Dal + Mixed Vegetables</p>
+
+            </div>
+
+        </section>
+
+        <!-- AI Tip -->
+
+        <section class="tip">
+
+            <h2>🌿 AI Health Tip</h2>
+
+            <p>
+
+                Drink 2 more glasses of water today 💧 and include
+                a protein-rich snack in the evening to reach your daily nutrition goal.
+
+            </p>
+
+        </section>
+
+    </main>
+
+</div>
+
+</body>
+
+</html>

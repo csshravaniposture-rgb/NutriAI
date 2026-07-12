@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Nutrition Analyzer | NutriAI</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- Sidebar -->
+
+<aside class="sidebar">
+
+    <h2>🥑 NutriAI</h2>
+
+    <ul>
+
+        <li><a href="{{ url_for('dashboard') }}">🏠 Dashboard</a></li>
+
+        <li><a href="{{ url_for('mealplanner') }}">🍽 Meal Planner</a></li>
+
+        <li class="active"><a href="{{ url_for('nutrition') }}">🥗 Nutrition Analyzer</a></li>
+
+        <li><a href="{{ url_for('recipe') }}">🍲 Recipe Generator</a></li>
+
+        <li><a href="{{ url_for('grocery') }}">🛒 Grocery Assistant</a></li>
+
+        <li><a href="{{ url_for('report') }}">📊 Reports</a></li>
+
+        <li><a href="{{ url_for('profile') }}">👤 Profile</a></li>
+
+        <li><a href="{{ url_for('home') }}">🚪 Logout</a></li>
+
+    </ul>
+
+</aside>
+<!-- Main -->
+
+<main class="main">
+
+<header class="topbar">
+
+<div>
+
+<h1>🥗 Nutrition Analyzer</h1>
+
+<p>Analyze the nutritional value of your food.</p>
+
+</div>
+
+</header>
+
+<div class="nutrition-search">
+
+<input type="text" placeholder="Search food (Example: Apple)">
+
+<button class="generate-btn">Analyze</button>
+
+</div>
+
+<section class="cards">
+
+<div class="card">
+
+<div class="card-icon">🔥</div>
+
+<h3>Calories</h3>
+
+<h2>95 kcal</h2>
+
+</div>
+
+<div class="card">
+
+<div class="card-icon">🥩</div>
+
+<h3>Protein</h3>
+
+<h2>0.5 g</h2>
+
+</div>
+
+<div class="card">
+
+<div class="card-icon">🍞</div>
+
+<h3>Carbs</h3>
+
+<h2>25 g</h2>
+
+</div>
+
+<div class="card">
+
+<div class="card-icon">🧈</div>
+
+<h3>Fat</h3>
+
+<h2>0.3 g</h2>
+
+</div>
+
+</section>
+
+<section class="meal">
+
+<h2>AI Nutrition Summary</h2>
+
+<div class="meal-box">
+
+<p>✅ Low in Calories</p>
+
+<p>✅ Rich in Fiber</p>
+
+<p>✅ Good source of Vitamin C</p>
+
+<p>💡 Best eaten as a morning snack.</p>
+
+</div>
+
+</section>
+
+</main>
+
+</div>
+
+</body>
+
+</html>

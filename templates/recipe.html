@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Recipe Generator | NutriAI</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- Sidebar -->
+
+    <!-- Sidebar -->
+
+<aside class="sidebar">
+
+    <h2>🥑 NutriAI</h2>
+
+    <ul>
+
+        <li><a href="{{ url_for('dashboard') }}">🏠 Dashboard</a></li>
+
+        <li><a href="{{ url_for('mealplanner') }}">🍽 Meal Planner</a></li>
+
+        <li><a href="{{ url_for('nutrition') }}">🥗 Nutrition Analyzer</a></li>
+
+        <li class="active"><a href="{{ url_for('recipe') }}">🍲 Recipe Generator</a></li>
+
+        <li><a href="{{ url_for('grocery') }}">🛒 Grocery Assistant</a></li>
+
+        <li><a href="{{ url_for('report') }}">📊 Reports</a></li>
+
+        <li><a href="{{ url_for('profile') }}">👤 Profile</a></li>
+
+        <li><a href="{{ url_for('home') }}">🚪 Logout</a></li>
+
+    </ul>
+
+</aside>
+
+    <!-- Main Content -->
+
+    <main class="main">
+
+        <!-- Header -->
+
+        <header class="topbar">
+
+            <div>
+
+                <h1>🍲 AI Recipe Generator</h1>
+
+                <p>Create healthy recipes using ingredients available at home.</p>
+
+            </div>
+
+        </header>
+
+        <!-- Search -->
+
+        <section class="nutrition-search">
+
+            <input
+                type="text"
+                placeholder="Enter ingredients (Example: Rice, Egg, Tomato, Onion)"
+            >
+
+            <button class="generate-btn">
+
+                ✨ Generate Recipe
+
+            </button>
+
+        </section>
+
+        <!-- Recipe Card -->
+
+        <section class="meal">
+
+            <h2>🍽 Today's AI Recipe</h2>
+
+            <div class="meal-box recipe-card">
+
+                <h2>🍛 Tomato Egg Fried Rice</h2>
+
+                <hr>
+
+                <div class="recipe-info">
+
+                    <p>⏱ <strong>Preparation Time:</strong> 20 Minutes</p>
+
+                    <p>🔥 <strong>Calories:</strong> 420 kcal</p>
+
+                    <p>🥗 <strong>Difficulty:</strong> Easy</p>
+
+                    <p>👨‍🍳 <strong>Servings:</strong> 2 People</p>
+
+                </div>
+
+                <hr>
+
+                <h3>🥕 Ingredients</h3>
+
+                <ul class="recipe-list">
+
+                    <li>1 Cup Cooked Rice</li>
+
+                    <li>2 Eggs</li>
+
+                    <li>1 Tomato</li>
+
+                    <li>1 Onion</li>
+
+                    <li>2 tsp Oil</li>
+
+                    <li>Salt to Taste</li>
+
+                    <li>Black Pepper</li>
+
+                    <li>Fresh Coriander</li>
+
+                </ul>
+
+                <hr>
+
+                <h3>👨‍🍳 Cooking Steps</h3>
+
+                <ol class="recipe-list">
+
+                    <li>Heat oil in a pan.</li>
+
+                    <li>Add chopped onions and sauté until golden.</li>
+
+                    <li>Add tomatoes and cook for 2 minutes.</li>
+
+                    <li>Add beaten eggs and scramble.</li>
+
+                    <li>Add cooked rice.</li>
+
+                    <li>Season with salt and pepper.</li>
+
+                    <li>Mix everything well.</li>
+
+                    <li>Garnish with coriander and serve hot.</li>
+
+                </ol>
+
+                <hr>
+
+                <h3>💡 AI Health Tip</h3>
+
+                <p>
+
+                    Add peas and carrots to increase fiber and vitamins.
+                    Serve with cucumber salad for a balanced meal.
+
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+</body>
+
+</html>
