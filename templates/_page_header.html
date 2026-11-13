@@ -1,0 +1,30 @@
+<!-- =====================================================
+     SHARED PAGE HEADER — included on every tool page
+     Do not copy/paste this markup into other templates.
+     Set page_icon / page_title / page_subtitle / page_status
+     before including this file. Edit this ONE file (and
+     static/css/page-header.css) to change it everywhere.
+====================================================== -->
+<header class="topbar">
+
+    <div class="topbar-content">
+
+        <div class="topbar-icon">
+            {{ page_icon }}
+        </div>
+
+        <div>
+            <h1>{{ page_title }}</h1>
+            <p>{{ page_subtitle }}</p>
+        </div>
+
+    </div>
+
+    {% if page_status %}
+    <div class="ai-status">
+        <span class="status-dot"></span>
+        {{ page_status }}
+    </div>
+    {% endif %}
+
+</header>

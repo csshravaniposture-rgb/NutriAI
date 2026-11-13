@@ -8,190 +8,1903 @@
 
     <title>Dashboard | NutriAI</title>
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/dashboard.css') }}">
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/sidebar.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
 
 </head>
 
+
 <body>
 
-<div class="container">
+<div class="app">
 
-    <!-- Sidebar -->
+    {% include "_sidebar.html" %}
 
-    <aside class="sidebar">
 
-        <h2>🥑 NutriAI</h2>
-
-        <ul>
-
-            <li><a href="/dashboard">🏠 Dashboard</a></li>
-<li><a href="/mealplanner">🍽 Meal Planner</a></li>
-<li><a href="/nutrition">🥗 Nutrition Analyzer</a></li>
-<li><a href="/recipe">🍲 Recipe Generator</a></li>
-<li><a href="/grocery">🛒 Grocery Assistant</a></li>
-<li><a href="/report">📊 Reports</a></li>
-<li><a href="/profile">👤 Profile</a></li>
-<li><a href="/">🚪 Logout</a></li>
-
-        </ul>
-
-    </aside>
-
-    <!-- Main Content -->
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
 
     <main class="main">
 
-        <!-- Top Bar -->
+
+        <!-- TOP BAR -->
 
         <header class="topbar">
 
-            <div>
+            <div class="mobile-brand">
 
-                <h1>Hello, {{ user.name }} 👋</h1>
-
-                <p>Welcome back, {{ user.name }}! Here's your health summary today.</p>
+                🌿 Nutri<span>AI</span>
 
             </div>
 
-            <div class="top-right">
 
-                <input type="text" placeholder="🔍 Search...">
+            <div class="top-actions">
 
-                <div class="notify">🔔</div>
+                <div class="notification" id="notificationBell">
 
+                    🔔
+
+                    <span></span>
+
+                </div>
+
+
+                <a href="{{ url_for('profile') }}"
+                   class="profile-mini">
+
+                    <div class="avatar">
+
+                        {{ user.name[0]|upper }}
+
+                    </div>
+
+
+                    <div class="profile-name">
+
+                        <strong>
+                            {{ user.name }}
+                        </strong>
+
+                        <small>
+                            My Profile
+                        </small>
+
+                    </div>
+
+                </a>
 
             </div>
 
         </header>
 
-        <!-- Summary Cards -->
 
-        <section class="cards">
 
-            <div class="card">
+        <!-- =====================================================
+             DASHBOARD CONTENT
+        ====================================================== -->
 
-                <div class="card-icon">🔥</div>
+        <section class="content">
 
-                <h3>Calories</h3>
 
-                <h2>1650 kcal</h2>
+            <!-- STAY ON TRACK NOTIFICATION -->
+
+            <div class="notification-card" id="notificationCard">
+
+                <div class="notification-card-icon">
+                    🔔
+                </div>
+
+                <div class="notification-card-content">
+
+                    <h3>Stay on Track</h3>
+
+                    <p>
+                        Enable notifications for meal, hydration and nutrition reminders.
+                    </p>
+
+                </div>
+
+                <button
+                    type="button"
+                    id="enableNotificationsBtn"
+                    class="notification-btn">
+
+                    Enable Notifications
+
+                </button>
+
+            </div>
+
+
+
+            <!-- WELCOME -->
+
+            <div class="welcome-section">
+
+                <div>
+
+                    <p class="eyebrow">
+                        YOUR DAILY NUTRITION SPACE
+                    </p>
+
+
+                    <h1>
+
+                        Good day,
+                        {{ user.name.split()[0] }}!
+
+                        <span>
+                            👋
+                        </span>
+
+                    </h1>
+
+
+                    <p class="welcome-text">
+
+                        Let's make today's choices
+                        healthier, smarter and better.
+
+                    </p>
+
+                </div>
+
+
+                <div class="date-card">
+
+                    <span>
+                        📅
+                    </span>
+
+                    <div>
+
+                        <small>
+                            TODAY
+                        </small>
+
+                        <strong>
+                            {{ today.strftime('%d %B %Y') }}
+                        </strong>
+
+                    </div>
+
+                </div>
 
             </div>
 
-            <div class="card">
 
-                <div class="card-icon">💧</div>
 
-                <h3>Water</h3>
+            <!-- =================================================
+                 LOGIN SUCCESS MESSAGE
+            ================================================== -->
 
-                <h2>6 / 8 Glasses</h2>
+            {% if show_welcome %}
+
+            <div class="welcome-alert">
+
+                <div class="alert-icon">
+                    ✓
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        Welcome back,
+                        {{ user.name.split()[0] }}!
+                    </strong>
+
+                    <p>
+
+                        You're successfully logged in.
+                        Let's continue your healthy journey.
+
+                    </p>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    onclick="this.parentElement.remove()">
+
+                    ×
+
+                </button>
 
             </div>
 
-            <div class="card">
+            {% endif %}
 
-                <div class="card-icon">🚶</div>
 
-                <h3>Steps</h3>
 
-                <h2>7,500</h2>
+            <!-- =================================================
+                 STAT CARDS
+            ================================================== -->
+
+            <div class="stats-grid">
+
+
+                <!-- CALORIES -->
+
+                <div class="stat-card calories">
+
+                    <div class="stat-top">
+
+                        <div class="stat-icon">
+                            🔥
+                        </div>
+
+                        <span>
+                            DAILY ENERGY
+                        </span>
+
+                    </div>
+
+
+                    <div class="stat-value">
+
+                        <span id="live-calories">
+                            0
+                        </span>
+
+                        <small>
+                            kcal
+                        </small>
+
+                    </div>
+
+
+                    <div class="progress">
+
+                        <div
+                            class="progress-fill"
+                            id="calorie-progress"
+                            data-progress="0">
+                        </div>
+
+                    </div>
+
+
+                    <p id="calorie-description">
+                        Your daily calorie intake
+                    </p>
+
+                </div>
+
+
+
+                <!-- PROTEIN -->
+
+                <div class="stat-card protein">
+
+                    <div class="stat-top">
+
+                        <div class="stat-icon">
+                            💪
+                        </div>
+
+                        <span>
+                            PROTEIN
+                        </span>
+
+                    </div>
+
+
+                    <div class="stat-value">
+
+                        <span id="live-protein">
+                            0
+                        </span>
+
+                        <small>
+                            g
+                        </small>
+
+                    </div>
+
+
+                    <div class="progress">
+
+                        <div
+                            class="progress-fill"
+                            id="protein-progress"
+                            data-progress="0">
+                        </div>
+
+                    </div>
+
+
+                    <p id="protein-description">
+                        Keep adding protein-rich foods
+                    </p>
+
+                </div>
+
+
+
+                <!-- MEAL PROGRESS -->
+
+                <div class="stat-card meals">
+
+                    <div class="stat-top">
+
+                        <div class="stat-icon">
+                            🍽
+                        </div>
+
+                        <span>
+                            MEAL PROGRESS
+                        </span>
+
+                    </div>
+
+
+                    <div class="stat-value">
+
+                        <span id="live-meals">
+                            {{ completed_meals }}
+                        </span>
+
+                        <small>
+                            / 4
+                        </small>
+
+                    </div>
+
+
+                    <div class="progress">
+
+                        <div
+                            class="progress-fill"
+                            id="meal-progress"
+                            data-progress="{{ meal_percentage }}">
+                        </div>
+
+                    </div>
+
+
+                    <p id="meal-description">
+
+                        {{ meal_percentage }}%
+                        of today's meals completed
+
+                    </p>
+
+                </div>
+
+
+
+                <!-- GOAL -->
+
+                <div class="stat-card goal">
+
+                    <div class="stat-top">
+
+                        <div class="stat-icon">
+                            🎯
+                        </div>
+
+                        <span>
+                            YOUR GOAL
+                        </span>
+
+                    </div>
+
+
+                    <div class="goal-text">
+
+                        {{ user.goal or "Maintain Weight" }}
+
+                    </div>
+
+
+                    <p>
+                        Personalized for your journey
+                    </p>
+
+                </div>
+
 
             </div>
 
-            <div class="card">
 
-                <div class="card-icon">⚖</div>
 
-                <h3>BMI</h3>
+            <!-- =================================================
+                 FOOD + WATER LOGGING
+            ================================================== -->
 
-                <h2>22.1</h2>
+            <div class="dashboard-grid">
+
+
+                <!-- LOG FOOD -->
+
+                <section class="panel">
+
+                    <div class="log-panel-header">
+                        <div class="log-panel-icon">🍲</div>
+                        <div>
+                            <span class="section-label">NUTRITION TRACKER</span>
+                            <h2>Log Food</h2>
+                        </div>
+                    </div>
+
+                    <form id="foodLogForm">
+                        <div class="input-group">
+                            <div class="input-field">
+                                <input type="text" id="foodInput" name="food"
+                                       placeholder="e.g. Chicken, Eggs, Rice" required>
+                            </div>
+                            <div class="input-field qty">
+                                <input type="number" id="quantityInput" name="quantity"
+                                       placeholder="Quantity (g)" value="100" min="1" required>
+                            </div>
+                            <button type="submit" class="log-submit-btn">+ Add Food</button>
+                        </div>
+                    </form>
+
+                    <p id="foodLogMessage" class="log-result"></p>
+
+                </section>
+
+
+                <!-- LOG WATER -->
+
+                <section class="panel">
+
+                    <div class="log-panel-header">
+                        <div class="log-panel-icon">💧</div>
+                        <div>
+                            <span class="section-label">HYDRATION</span>
+                            <h2>Log Water</h2>
+                        </div>
+                    </div>
+
+                    <form id="waterLogForm">
+                        <div class="input-group">
+                            <div class="input-field">
+                                <input type="number" id="waterInput" name="amount"
+                                       placeholder="Amount in ml" value="250" min="1" required>
+                            </div>
+                            <button type="submit" class="log-submit-btn">+ Add Water</button>
+                        </div>
+                    </form>
+
+                    <div class="quick-add-row">
+                        <button type="button" class="quick-add-chip" data-amount="100">100ml</button>
+                        <button type="button" class="quick-add-chip" data-amount="250">250ml</button>
+                        <button type="button" class="quick-add-chip" data-amount="500">500ml</button>
+                        <button type="button" class="quick-add-chip" data-amount="1000">1L</button>
+                    </div>
+
+                    <p id="waterLogMessage" class="log-result">
+                        Today's water: <strong id="live-water">0.00 L</strong>
+                    </p>
+
+                </section>
 
             </div>
+
+
+
+            <!-- =================================================
+                 MAIN GRID
+            ================================================== -->
+
+            <div class="dashboard-grid">
+
+
+                <!-- MEAL JOURNEY -->
+
+                <section class="panel meals-panel">
+
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <span class="section-label">
+                                TODAY'S PLAN
+                            </span>
+
+                            <h2>
+                                Meal Journey
+                            </h2>
+
+                        </div>
+
+
+                        <a href="{{ url_for('mealplanner') }}">
+                            View Plan →
+                        </a>
+
+                    </div>
+
+
+
+                    <div class="meal-list">
+
+
+                        {% set meal_names = {
+
+                            'Breakfast':
+                            'Start your morning right',
+
+                            'Lunch':
+                            'Power your afternoon',
+
+                            'Snack':
+                            'A smart little break',
+
+                            'Dinner':
+                            'End your day well'
+
+                        } %}
+
+
+
+                        {% for meal_type in [
+
+                            'Breakfast',
+                            'Lunch',
+                            'Snack',
+                            'Dinner'
+
+                        ] %}
+
+
+                            {% set completed =
+                                meal_status.get(
+                                    meal_type,
+                                    false
+                                )
+                            %}
+
+
+                            {% set planned_meal =
+                                namespace(
+                                    food=meal_names[meal_type],
+                                    cost=0
+                                )
+                            %}
+
+
+                            {% for meal in meals %}
+
+                                {% if meal.meal_type == meal_type %}
+
+                                    {% set planned_meal.food =
+                                        meal.food
+                                    %}
+
+                                    {% set planned_meal.cost =
+                                        meal.cost or 0
+                                    %}
+
+                                {% endif %}
+
+                            {% endfor %}
+
+
+
+                            <div
+                                class="meal-row
+                                {% if completed %}
+                                    completed
+                                {% endif %}"
+                                id="meal-row-{{ meal_type }}">
+
+
+                                <!-- ICON -->
+
+                                <div class="meal-icon">
+
+                                    {% if meal_type == 'Breakfast' %}
+
+                                        ☀️
+
+                                    {% elif meal_type == 'Lunch' %}
+
+                                        🥗
+
+                                    {% elif meal_type == 'Snack' %}
+
+                                        🍎
+
+                                    {% else %}
+
+                                        🌙
+
+                                    {% endif %}
+
+                                </div>
+
+
+
+                                <!-- INFO -->
+
+                                <div class="meal-info">
+
+                                    <strong>
+                                        {{ meal_type }}
+                                    </strong>
+
+
+                                    <span>
+                                        {{ planned_meal.food }}
+                                    </span>
+
+
+                                    {% if planned_meal.cost > 0 %}
+
+                                        <small>
+
+                                            ₹{{ "%.0f"|format(
+                                                planned_meal.cost
+                                            ) }}
+
+                                        </small>
+
+                                    {% endif %}
+
+                                </div>
+
+
+
+                                <!-- BUTTON -->
+
+                                <form
+                                    class="meal-complete-form"
+                                    data-meal-type="{{ meal_type }}"
+                                    action="{{
+                                        url_for(
+                                            'complete_meal',
+                                            meal_type=meal_type
+                                        )
+                                    }}"
+                                    method="POST">
+
+
+                                    <button
+                                        type="submit"
+                                        class="meal-btn
+                                        {% if completed %}
+                                            done
+                                        {% endif %}"
+                                        id="meal-btn-{{ meal_type }}">
+
+
+                                        {% if completed %}
+
+                                            ✓ Completed
+
+                                        {% else %}
+
+                                            Mark Complete
+
+                                        {% endif %}
+
+                                    </button>
+
+                                </form>
+
+                            </div>
+
+
+                        {% endfor %}
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =================================================
+                     HEALTH SNAPSHOT
+                ================================================== -->
+
+                <section class="panel profile-panel">
+
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <span class="section-label">
+                                YOUR PROFILE
+                            </span>
+
+                            <h2>
+                                Health Snapshot
+                            </h2>
+
+                        </div>
+
+
+                        <a href="{{ url_for('profile') }}">
+                            Edit →
+                        </a>
+
+                    </div>
+
+
+
+                    <div class="profile-circle">
+
+                        <div class="big-avatar">
+
+                            {{ user.name[0]|upper }}
+
+                        </div>
+
+
+                        <h3>
+                            {{ user.name }}
+                        </h3>
+
+
+                        <p>
+
+                            {{ user.diet
+                               or
+                               "Diet preference not set" }}
+
+                        </p>
+
+                    </div>
+
+
+
+                    <div class="health-details">
+
+
+                        <div>
+
+                            <span>
+                                Age
+                            </span>
+
+                            <strong>
+
+                                {{ user.age or "--" }}
+
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Height
+                            </span>
+
+                            <strong>
+
+                                {% if user.height %}
+
+                                    {{ user.height }} cm
+
+                                {% else %}
+
+                                    --
+
+                                {% endif %}
+
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Weight
+                            </span>
+
+                            <strong>
+
+                                {% if user.weight %}
+
+                                    {{ user.weight }} kg
+
+                                {% else %}
+
+                                    --
+
+                                {% endif %}
+
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- GOAL INFO -->
+
+                    <div class="goal-box">
+
+                        <span>
+                            CURRENT GOAL
+                        </span>
+
+
+                        <strong>
+
+                            {{ user.goal or "Maintain Weight" }}
+
+                        </strong>
+
+                    </div>
+
+
+                </section>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 BOTTOM GRID
+            ================================================== -->
+
+            <div class="bottom-grid">
+
+
+                <!-- AI INSIGHT -->
+
+                <section class="ai-card">
+
+                    <div class="ai-glow"></div>
+
+
+                    <div class="ai-content">
+
+                        <div class="ai-badge">
+
+                            ✨ NUTRIAI INSIGHT
+
+                        </div>
+
+
+                        <h2>
+
+                            Your health journey,
+
+                            <span>
+                                one meal at a time.
+                            </span>
+
+                        </h2>
+
+
+                        <p>
+
+                            Explore personalized meal plans,
+                            discover healthy recipes and
+                            understand your nutrition better
+                            with NutriAI.
+
+                        </p>
+
+
+                        <div class="ai-buttons">
+
+
+                            <a
+                                href="{{ url_for('mealplanner') }}"
+                                class="ai-button">
+
+                                Explore My Plan
+
+                                <span>
+                                    →
+                                </span>
+
+                            </a>
+
+
+                            <a
+                                href="{{ url_for('nutrition') }}"
+                                class="ai-button secondary">
+
+                                Analyze Food
+
+                                <span>
+                                    →
+                                </span>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="ai-visual">
+
+                        🌿
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- QUICK ACTIONS -->
+
+                <section class="panel quick-panel">
+
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <span class="section-label">
+                                SHORTCUTS
+                            </span>
+
+                            <h2>
+                                Quick Actions
+                            </h2>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="quick-actions">
+
+
+                        <a href="{{ url_for('nutrition') }}">
+
+                            <span>
+                                🥗
+                            </span>
+
+                            <strong>
+                                Analyze Food
+                            </strong>
+
+                            <small>
+                                Check nutrition
+                            </small>
+
+                        </a>
+
+
+                        <a href="{{ url_for('recipe') }}">
+
+                            <span>
+                                🤖
+                            </span>
+
+                            <strong>
+                                Find Recipe
+                            </strong>
+
+                            <small>
+                                Create a recipe
+                            </small>
+
+                        </a>
+
+
+                        <a href="{{ url_for('grocery') }}">
+
+                            <span>
+                                🛒
+                            </span>
+
+                            <strong>
+                                Grocery List
+                            </strong>
+
+                            <small>
+                                Manage groceries
+                            </small>
+
+                        </a>
+
+
+                        <a href="{{ url_for('report') }}">
+
+                            <span>
+                                📊
+                            </span>
+
+                            <strong>
+                                View Report
+                            </strong>
+
+                            <small>
+                                Check health report
+                            </small>
+
+                        </a>
+
+
+                    </div>
+
+                </section>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 DAILY STATUS
+            ================================================== -->
+
+            <div class="daily-status">
+
+
+                <div class="status-left">
+
+
+                    <div class="status-icon">
+                        🌱
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            TODAY'S PROGRESS
+                        </span>
+
+
+                        <strong id="daily-status-text">
+
+                            {% if completed_meals == 4 %}
+
+                                Amazing! All meals completed 🎉
+
+                            {% elif completed_meals > 0 %}
+
+                                Great start! Keep going 💚
+
+                            {% else %}
+
+                                Your healthy journey starts here 🌿
+
+                            {% endif %}
+
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="status-progress">
+
+
+                    <div class="status-number"
+                         id="live-meal-percentage">
+
+                        {{ meal_percentage }}%
+
+                    </div>
+
+
+                    <div class="status-bar">
+
+
+                        <div
+                            class="status-fill"
+                            id="status-meal-progress"
+                            data-progress="{{ meal_percentage }}">
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
 
         </section>
 
-        <!-- Quick Actions -->
-
-        <section class="quick">
-
-            <h2>⚡ Quick Actions</h2>
-
-            <div class="quick-grid">
-
-                <div class="action">
-                    🍽<br><br>
-                    Meal Planner
-                </div>
-
-                <div class="action">
-                    🥗<br><br>
-                    Nutrition Analyzer
-                </div>
-
-                <div class="action">
-                    🍲<br><br>
-                    Recipe Generator
-                </div>
-
-                <div class="action">
-                    🛒<br><br>
-                    Grocery Assistant
-                </div>
-
-                <div class="action">
-                    📊<br><br>
-                    Reports
-                </div>
-
-                <div class="action">
-                    👤<br><br>
-                    Profile
-                </div>
-
-            </div>
-
-        </section>
-
-        <!-- Meal Plan -->
-
-        <section class="meal">
-
-            <h2>🍽 Today's Meal Plan</h2>
-
-            <div class="meal-box">
-
-                <p>🍳 <strong>Breakfast:</strong> Oats + Banana Smoothie</p>
-
-                <p>🥗 <strong>Lunch:</strong> Brown Rice + Paneer + Salad</p>
-
-                <p>🍎 <strong>Snack:</strong> Apple + Almonds</p>
-
-                <p>🍛 <strong>Dinner:</strong> Chapati + Dal + Mixed Vegetables</p>
-
-            </div>
-
-        </section>
-
-        <!-- AI Tip -->
-
-        <section class="tip">
-
-            <h2>🌿 AI Health Tip</h2>
-
-            <p>
-
-                Drink 2 more glasses of water today 💧 and include
-                a protein-rich snack in the evening to reach your daily nutrition goal.
-
-            </p>
-
-        </section>
 
     </main>
 
+
 </div>
+
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================== -->
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+
+        /* =========================================
+           INITIAL PROGRESS BARS
+        ========================================== */
+
+        document
+            .querySelectorAll("[data-progress]")
+            .forEach(function (bar) {
+
+                const percentage =
+                    parseFloat(
+                        bar.getAttribute(
+                            "data-progress"
+                        )
+                    ) || 0;
+
+                const safePercentage =
+                    Math.max(
+                        0,
+                        Math.min(
+                            100,
+                            percentage
+                        )
+                    );
+
+                setTimeout(function () {
+
+                    bar.style.width =
+                        safePercentage + "%";
+
+                }, 150);
+
+            });
+
+
+
+        /* =========================================
+           CARD ANIMATION
+        ========================================== */
+
+        const cards =
+            document.querySelectorAll(
+                ".stat-card, .panel, .ai-card, .daily-status"
+            );
+
+
+        cards.forEach(
+            function (card, index) {
+
+                card.style.animationDelay =
+                    (index * 0.06) + "s";
+
+            }
+        );
+
+
+
+        /* =========================================
+           UPDATE DAILY PROGRESS
+        ========================================== */
+
+        async function updateDailyProgress() {
+
+            try {
+
+                const response =
+                    await fetch(
+                        "/api/daily-progress",
+                        {
+                            method: "GET",
+                            headers: {
+                                "X-Requested-With":
+                                    "XMLHttpRequest"
+                            }
+                        }
+                    );
+
+
+                if (!response.ok) {
+                    return;
+                }
+
+
+                const data =
+                    await response.json();
+
+
+                if (!data.success) {
+                    return;
+                }
+
+
+                const nutrition =
+                    data.nutrition;
+
+                const meals =
+                    data.meals;
+
+                const water =
+                    data.water;
+
+                const progress =
+                    data.progress;
+
+
+
+                /* =================================
+                   CALORIES
+                ================================== */
+
+                const caloriesElement =
+                    document.getElementById(
+                        "live-calories"
+                    );
+
+
+                if (caloriesElement) {
+
+                    caloriesElement.textContent =
+                        Math.round(
+                            nutrition.calories
+                        ).toLocaleString();
+
+                }
+
+
+
+                /* =================================
+                   PROTEIN
+                ================================== */
+
+                const proteinElement =
+                    document.getElementById(
+                        "live-protein"
+                    );
+
+
+                if (proteinElement) {
+
+                    proteinElement.textContent =
+                        nutrition.protein.toFixed(1);
+
+                }
+
+
+
+                /* =================================
+                   WATER
+                ================================== */
+
+                const waterElement =
+                    document.getElementById(
+                        "live-water"
+                    );
+
+
+                if (waterElement) {
+
+                    waterElement.textContent =
+                        (
+                            water.amount / 1000
+                        ).toFixed(2) + " L";
+
+                }
+
+
+
+                /* =================================
+                   MEALS
+                ================================== */
+
+                const mealElement =
+                    document.getElementById(
+                        "live-meals"
+                    );
+
+
+                if (mealElement) {
+
+                    mealElement.textContent =
+                        meals.completed;
+
+                }
+
+
+
+                /* =================================
+                   CALORIE BAR
+                ================================== */
+
+                const calorieBar =
+                    document.getElementById(
+                        "calorie-progress"
+                    );
+
+
+                if (calorieBar) {
+
+                    calorieBar.style.width =
+                        progress.calories + "%";
+
+                }
+
+
+
+                /* =================================
+                   PROTEIN BAR
+                ================================== */
+
+                const proteinBar =
+                    document.getElementById(
+                        "protein-progress"
+                    );
+
+
+                if (proteinBar) {
+
+                    proteinBar.style.width =
+                        progress.protein + "%";
+
+                }
+
+
+
+                /* =================================
+                   MEAL BAR
+                ================================== */
+
+                const mealBar =
+                    document.getElementById(
+                        "meal-progress"
+                    );
+
+
+                if (mealBar) {
+
+                    mealBar.style.width =
+                        meals.progress + "%";
+
+                }
+
+
+
+                /* =================================
+                   DAILY STATUS BAR
+                ================================== */
+
+                const statusBar =
+                    document.getElementById(
+                        "status-meal-progress"
+                    );
+
+
+                if (statusBar) {
+
+                    statusBar.style.width =
+                        meals.progress + "%";
+
+                }
+
+
+
+                /* =================================
+                   DAILY STATUS %
+                ================================== */
+
+                const percentageElement =
+                    document.getElementById(
+                        "live-meal-percentage"
+                    );
+
+
+                if (percentageElement) {
+
+                    percentageElement.textContent =
+                        Math.round(
+                            meals.progress
+                        ) + "%";
+
+                }
+
+
+
+                /* =================================
+                   DAILY STATUS MESSAGE
+                ================================== */
+
+                const statusText =
+                    document.getElementById(
+                        "daily-status-text"
+                    );
+
+
+                if (statusText) {
+
+                    if (meals.completed === 4) {
+
+                        statusText.textContent =
+                            "Amazing! All meals completed 🎉";
+
+                    } else if (
+                        meals.completed > 0
+                    ) {
+
+                        statusText.textContent =
+                            "Great start! Keep going 💚";
+
+                    } else {
+
+                        statusText.textContent =
+                            "Your healthy journey starts here 🌿";
+
+                    }
+
+                }
+
+
+
+                /* =================================
+                   MEAL BUTTON STATES
+                ================================== */
+
+                if (data.meals) {
+
+                    /*
+                     * We do not reload the page here.
+                     * Individual buttons are updated
+                     * by the complete-meal AJAX handler.
+                     */
+
+                }
+
+            } catch (error) {
+
+                console.log(
+                    "Daily progress error:",
+                    error
+                );
+
+            }
+
+        }
+
+
+
+        /* =========================================
+           COMPLETE MEAL AJAX
+        ========================================== */
+
+        document
+            .querySelectorAll(".meal-complete-form")
+            .forEach(function (form) {
+
+                form.addEventListener(
+                    "submit",
+                    async function (event) {
+
+                        event.preventDefault();
+
+
+                        const mealType =
+                            form.getAttribute(
+                                "data-meal-type"
+                            );
+
+
+                        const button =
+                            form.querySelector(
+                                ".meal-btn"
+                            );
+
+
+                        const row =
+                            document.getElementById(
+                                "meal-row-" + mealType
+                            );
+
+
+                        try {
+
+                            button.disabled = true;
+
+
+                            const response =
+                                await fetch(
+                                    form.action,
+                                    {
+                                        method: "POST",
+                                        headers: {
+                                            "X-Requested-With":
+                                                "XMLHttpRequest"
+                                        }
+                                    }
+                                );
+
+
+                            const data =
+                                await response.json();
+
+
+                            if (
+                                !data.success
+                            ) {
+
+                                alert(
+                                    data.error ||
+                                    "Unable to update meal."
+                                );
+
+                                return;
+
+                            }
+
+
+
+                            /* ======================
+                               UPDATE BUTTON
+                            ======================= */
+
+                            if (data.completed) {
+
+                                button.textContent =
+                                    "✓ Completed";
+
+                                button.classList.add(
+                                    "done"
+                                );
+
+
+                                if (row) {
+
+                                    row.classList.add(
+                                        "completed"
+                                    );
+
+                                }
+
+                            } else {
+
+                                button.textContent =
+                                    "Mark Complete";
+
+                                button.classList.remove(
+                                    "done"
+                                );
+
+
+                                if (row) {
+
+                                    row.classList.remove(
+                                        "completed"
+                                    );
+
+                                }
+
+                            }
+
+
+
+                            /* ======================
+                               UPDATE ALL STATS
+                            ======================= */
+
+                            await updateDailyProgress();
+
+
+                        } catch (error) {
+
+                            console.log(
+                                "Meal update error:",
+                                error
+                            );
+
+                            alert(
+                                "Unable to update meal. Please try again."
+                            );
+
+                        } finally {
+
+                            button.disabled = false;
+
+                        }
+
+                    }
+                );
+
+            });
+
+
+
+        /* =========================================
+           FOOD LOGGING
+        ========================================== */
+
+        const foodForm =
+            document.getElementById(
+                "foodLogForm"
+            );
+
+
+        if (foodForm) {
+
+            foodForm.addEventListener(
+                "submit",
+                async function (event) {
+
+                    event.preventDefault();
+
+
+                    const food =
+                        document.getElementById(
+                            "foodInput"
+                        ).value.trim();
+
+
+                    const quantity =
+                        document.getElementById(
+                            "quantityInput"
+                        ).value;
+
+
+                    const message =
+                        document.getElementById(
+                            "foodLogMessage"
+                        );
+
+
+                    if (!food) {
+
+                        message.textContent =
+                            "Please enter a food.";
+
+                        return;
+
+                    }
+
+
+                    message.textContent =
+                        "Calculating nutrition...";
+
+
+                    try {
+
+                        const formData =
+                            new FormData();
+
+                        formData.append(
+                            "food",
+                            food
+                        );
+
+                        formData.append(
+                            "quantity",
+                            quantity
+                        );
+
+
+                        const response =
+                            await fetch(
+                                "/log-food",
+                                {
+                                    method: "POST",
+                                    body: formData
+                                }
+                            );
+
+
+                        const data =
+                            await response.json();
+
+
+                        if (!data.success) {
+
+                            message.textContent =
+                                data.error ||
+                                "Unable to add food.";
+
+                            return;
+
+                        }
+
+
+                        message.textContent =
+                            data.message;
+
+
+                        document.getElementById(
+                            "foodInput"
+                        ).value = "";
+
+
+                        await updateDailyProgress();
+
+
+                    } catch (error) {
+
+                        console.log(
+                            "Food logging error:",
+                            error
+                        );
+
+                        message.textContent =
+                            "Unable to add food. Please try again.";
+
+                    }
+
+                }
+            );
+
+        }
+
+
+
+        /* =========================================
+           WATER LOGGING
+        ========================================== */
+
+        const waterForm =
+            document.getElementById(
+                "waterLogForm"
+            );
+
+
+        if (waterForm) {
+
+            waterForm.addEventListener(
+                "submit",
+                async function (event) {
+
+                    event.preventDefault();
+
+
+                    const amount =
+                        document.getElementById(
+                            "waterInput"
+                        ).value;
+
+
+                    const message =
+                        document.getElementById(
+                            "waterLogMessage"
+                        );
+
+
+                    try {
+
+                        const formData =
+                            new FormData();
+
+                        formData.append(
+                            "amount",
+                            amount
+                        );
+
+
+                        const response =
+                            await fetch(
+                                "/log-water",
+                                {
+                                    method: "POST",
+                                    body: formData
+                                }
+                            );
+
+
+                        const data =
+                            await response.json();
+
+
+                        if (!data.success) {
+
+                            message.textContent =
+                                data.error ||
+                                "Unable to add water.";
+
+                            return;
+
+                        }
+
+
+                        message.innerHTML =
+                            "Today's water: <strong>" +
+                            (
+                                data.water / 1000
+                            ).toFixed(2) +
+                            " L</strong>";
+
+
+                        await updateDailyProgress();
+
+
+                    } catch (error) {
+
+                        console.log(
+                            "Water logging error:",
+                            error
+                        );
+
+                        message.textContent =
+                            "Unable to add water. Please try again.";
+
+                    }
+
+                }
+            );
+
+        }
+
+
+
+        /* =========================================
+           WATER QUICK-ADD CHIPS
+        ========================================== */
+
+        document
+            .querySelectorAll(".quick-add-chip")
+            .forEach(function (chip) {
+
+                chip.addEventListener(
+                    "click",
+                    function () {
+
+                        document.getElementById(
+                            "waterInput"
+                        ).value = chip.dataset.amount;
+
+
+                        document
+                            .querySelectorAll(".quick-add-chip")
+                            .forEach(function (c) {
+
+                                c.classList.remove("active");
+
+                            });
+
+
+                        chip.classList.add("active");
+
+                    }
+                );
+
+            });
+
+
+
+        /* =========================================
+           INITIAL LIVE DATA
+        ========================================== */
+
+        updateDailyProgress();
+
+
+        /* =========================================
+           AUTO UPDATE EVERY 5 SECONDS
+        ========================================== */
+
+        setInterval(
+            updateDailyProgress,
+            5000
+        );
+
+    }
+);
+
+</script>
+
+
+<script src="{{ url_for('static', filename='js/notification.js') }}"></script>
+
 
 </body>
 

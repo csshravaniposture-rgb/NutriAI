@@ -1,0 +1,351 @@
+/* =====================================================
+   NUTRIAI — SHARED SIDEBAR (used on every page)
+   This is the ONLY place sidebar styling should live.
+===================================================== */
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+
+    width: 255px;
+    height: 100vh;
+
+    padding: 25px 17px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #123524 0%,
+            #0a2419 55%,
+            #071910 100%
+        );
+
+    border-right: 1px solid rgba(149, 213, 91, 0.12);
+
+    display: flex;
+    flex-direction: column;
+
+    z-index: 1000;
+
+    box-shadow:
+        10px 0 35px rgba(0, 0, 0, 0.12);
+}
+
+
+/* =====================================================
+   BRAND
+===================================================== */
+
+.brand {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 4px 10px 30px;
+}
+
+
+.brand-icon {
+    width: 42px;
+    height: 42px;
+
+    border-radius: 13px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 22px;
+
+    background:
+        rgba(149, 213, 91, 0.12);
+
+    border:
+        1px solid rgba(149, 213, 91, 0.22);
+
+    box-shadow:
+        0 0 25px rgba(149, 213, 91, 0.08);
+}
+
+
+.brand-text h2 {
+    color: #a8e96b;
+
+    font-size: 22px;
+    font-weight: 700;
+
+    letter-spacing: -0.5px;
+}
+
+
+.brand-text h2 span {
+    color: #d8f6bd;
+}
+
+
+.brand-text small {
+    display: block;
+
+    margin-top: 2px;
+
+    color: #71927d;
+
+    font-size: 8px;
+    font-weight: 500;
+
+    letter-spacing: 1.5px;
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+.navigation {
+    flex: 1;
+}
+
+
+.nav-item {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    gap: 13px;
+
+    text-decoration: none;
+
+    color: #9db3a4;
+
+    padding: 12px 13px;
+
+    margin: 4px 0;
+
+    border-radius: 12px;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    transition:
+        background 0.25s ease,
+        color 0.25s ease,
+        transform 0.25s ease;
+}
+
+
+.nav-item > span {
+    width: 24px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 17px;
+}
+
+
+.nav-item:hover {
+    color: #dff5d1;
+
+    background:
+        rgba(149, 213, 91, 0.08);
+
+    transform: translateX(3px);
+}
+
+
+.nav-item.active {
+    color: #b8ef82;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(149, 213, 91, 0.17),
+            rgba(149, 213, 91, 0.05)
+        );
+
+    border:
+        1px solid rgba(149, 213, 91, 0.13);
+
+    box-shadow:
+        inset 3px 0 0 #95d55b,
+        0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+
+/* =====================================================
+   SIDEBAR BOTTOM
+===================================================== */
+
+.sidebar-bottom {
+    margin-top: auto;
+}
+
+
+.mini-tip {
+    display: flex;
+    align-items: flex-start;
+
+    gap: 11px;
+
+    padding: 14px;
+
+    margin-bottom: 12px;
+
+    border-radius: 15px;
+
+    background:
+        rgba(149, 213, 91, 0.07);
+
+    border:
+        1px solid rgba(149, 213, 91, 0.10);
+}
+
+
+.tip-icon {
+    width: 30px;
+    height: 30px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 9px;
+
+    background:
+        rgba(149, 213, 91, 0.10);
+
+    font-size: 15px;
+}
+
+
+.mini-tip strong {
+    display: block;
+
+    color: #c8eeb0;
+
+    font-size: 12px;
+
+    margin-bottom: 3px;
+}
+
+
+.mini-tip p {
+    color: #718b7a;
+
+    font-size: 10px;
+
+    line-height: 1.5;
+}
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+.logout {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 12px 13px;
+
+    border-radius: 11px;
+
+    text-decoration: none;
+
+    color: #8da397;
+
+    font-size: 14px;
+
+    transition:
+        background 0.25s ease,
+        color 0.25s ease;
+}
+
+
+.logout:hover {
+    color: #ff9b9b;
+
+    background:
+        rgba(255, 90, 90, 0.07);
+}
+
+
+.logout > span {
+    width: 24px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 18px;
+}
+
+
+/* =====================================================
+   MOBILE SIDEBAR
+===================================================== */
+
+@media (max-width: 760px) {
+
+    .sidebar {
+        width: 75px;
+
+        padding: 20px 10px;
+    }
+
+
+    .brand {
+        justify-content: center;
+
+        padding:
+            4px 0 25px;
+    }
+
+
+    .brand-text {
+        display: none;
+    }
+
+
+    .nav-item {
+        justify-content: center;
+
+        padding: 13px 8px;
+    }
+
+
+    .nav-item label {
+        display: none;
+    }
+
+
+    .nav-item.active {
+        box-shadow: none;
+    }
+
+
+    .mini-tip {
+        display: none;
+    }
+
+
+    .logout {
+        justify-content: center;
+
+        padding: 13px 8px;
+    }
+
+
+    .logout label {
+        display: none;
+    }
+
+}

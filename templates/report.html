@@ -3,148 +3,875 @@
 
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Reports | NutriAI</title>
+    <title>Reports | NutriAI</title>
 
-<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/dashboard.css') }}">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/sidebar.css') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/page-header.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background:
+                radial-gradient(circle at 85% 10%, rgba(149, 213, 91, 0.10), transparent 28%),
+                radial-gradient(circle at 10% 90%, rgba(68, 140, 83, 0.10), transparent 30%),
+                #061a12;
+            color: #f2f7f2;
+            min-height: 100vh;
+        }
+
+        .main {
+            margin-left: 255px;
+            min-height: 100vh;
+            padding: 38px 45px 60px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 28px;
+        }
+
+        .card {
+            position: relative;
+            overflow: hidden;
+            padding: 23px;
+            min-height: 135px;
+            border-radius: 19px;
+
+            background:
+                linear-gradient(145deg,
+                rgba(255,255,255,0.055),
+                rgba(255,255,255,0.018));
+
+            border: 1px solid rgba(149, 213, 91, 0.12);
+            box-shadow: 0 18px 45px rgba(0,0,0,0.18);
+            transition: all 0.3s ease;
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            width: 90px;
+            height: 90px;
+            right: -30px;
+            top: -30px;
+            border-radius: 50%;
+            background: rgba(149, 213, 91, 0.07);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(149, 213, 91, 0.25);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.28);
+        }
+
+        .card h3 {
+            position: relative;
+            color: #91a99a;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+
+        .card h2 {
+            position: relative;
+            color: #b5eb7d;
+            font-size: 27px;
+            font-weight: 700;
+        }
+
+        .meal {
+            padding: 28px;
+            border-radius: 21px;
+            margin-bottom: 25px;
+
+            background:
+                linear-gradient(145deg,
+                rgba(255,255,255,0.055),
+                rgba(255,255,255,0.018));
+
+            border: 1px solid rgba(149, 213, 91, 0.12);
+            box-shadow: 0 18px 50px rgba(0,0,0,0.20);
+        }
+
+        .meal h2 {
+            font-size: 20px;
+            margin-bottom: 25px;
+            color: #eef7ed;
+        }
+
+        .meal-box {
+            padding: 22px;
+            border-radius: 17px;
+            background: rgba(3, 19, 12, 0.48);
+            border: 1px solid rgba(149, 213, 91, 0.08);
+        }
+
+        .progress-item {
+            margin-bottom: 21px;
+        }
+
+        .progress-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 9px;
+        }
+
+        .progress-header p {
+            color: #a9bbae;
+            font-size: 13px;
+        }
+
+        .progress-percent {
+            color: #9fdf69;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .progress {
+            height: 9px;
+            width: 100%;
+            background: #15291f;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: var(--progress, 0%);
+            border-radius: 20px;
+             background:
+              linear-gradient(90deg, #5b9f4e, #a8e96b);
+             box-shadow: 0 0 14px rgba(149, 213, 91, 0.25);
+             transition: width 0.8s ease;
+        }
+
+        .tip {
+            position: relative;
+            overflow: hidden;
+            padding: 28px;
+            border-radius: 21px;
+
+            background:
+                radial-gradient(circle at 90% 20%,
+                rgba(149, 213, 91, 0.13),
+                transparent 35%),
+                linear-gradient(145deg,
+                rgba(149, 213, 91, 0.08),
+                rgba(255,255,255,0.025));
+
+            border: 1px solid rgba(149, 213, 91, 0.17);
+            box-shadow: 0 18px 50px rgba(0,0,0,0.18);
+        }
+
+        .tip::after {
+            content: "✦";
+            position: absolute;
+            right: 35px;
+            top: 18px;
+            font-size: 70px;
+            color: rgba(149, 213, 91, 0.06);
+        }
+
+        .tip h2 {
+            position: relative;
+            z-index: 1;
+            font-size: 20px;
+            margin-bottom: 13px;
+            color: #c8efa8;
+        }
+
+        .tip p {
+            position: relative;
+            z-index: 1;
+            max-width: 850px;
+            color: #9caf9f;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        @media (max-width: 1100px) {
+
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .main {
+                padding: 30px;
+            }
+        }
+
+        @media (max-width: 760px) {
+
+            .sidebar {
+                width: 75px;
+                padding: 20px 10px;
+            }
+
+            .logo {
+                justify-content: center;
+                padding: 4px 0 25px;
+            }
+
+            .logo > div:last-child,
+            .sidebar-nav a span:last-child,
+            .nav-title,
+            .mini-tip,
+            .logout label {
+                display: none;
+            }
+
+            .sidebar-nav a {
+                justify-content: center;
+                padding: 13px 8px;
+            }
+
+            .sidebar-nav a.active {
+                box-shadow: none;
+            }
+
+            .logout {
+                justify-content: center;
+            }
+
+            .main {
+                margin-left: 75px;
+                padding: 25px 18px 40px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+
+            .card {
+                padding: 18px;
+            }
+
+            .card h2 {
+                font-size: 22px;
+            }
+        }
+
+        @media (max-width: 500px) {
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .meal,
+            .tip {
+                padding: 20px;
+            }
+
+            .meal-box {
+                padding: 17px;
+            }
+        }
+
+    </style>
 
 </head>
+
 
 <body>
 
 <div class="container">
 
-<!-- Sidebar -->
 
-<aside class="sidebar">
+    {% include "_sidebar.html" %}
 
-    <h2>🥑 NutriAI</h2>
 
-    <ul>
+    <main class="main">
 
-        <li><a href="{{ url_for('dashboard') }}">🏠 Dashboard</a></li>
 
-        <li><a href="{{ url_for('mealplanner') }}">🍽 Meal Planner</a></li>
+        <!-- HEADER -->
 
-        <li><a href="{{ url_for('nutrition') }}">🥗 Nutrition Analyzer</a></li>
+        {% set page_icon = "📊" %}
+        {% set page_title = "Health Reports" %}
+        {% set page_subtitle = "Your nutrition progress and health insights." %}
+        {% set page_status = "Insights Ready" %}
 
-        <li><a href="{{ url_for('recipe') }}">🍲 Recipe Generator</a></li>
+        {% include "_page_header.html" %}
 
-        <li><a href="{{ url_for('grocery') }}">🛒 Grocery Assistant</a></li>
 
-        <li class="active"><a href="{{ url_for('report') }}">📊 Reports</a></li>
 
-        <li><a href="{{ url_for('profile') }}">👤 Profile</a></li>
+        <!-- =========================================
+             STAT CARDS
+        ========================================== -->
 
-        <li><a href="{{ url_for('home') }}">🚪 Logout</a></li>
+        <div class="cards">
 
-    </ul>
 
-</aside>
+            <!-- CALORIES -->
 
-<!-- Main -->
+            <div class="card">
 
-<main class="main">
+                <h3>
+                    🔥 Calories
+                </h3>
 
-<header class="topbar">
+                <h2>
+                    {{ nutrition.calories|round|int }} kcal
+                </h2>
 
-<div>
+            </div>
 
-<h1>📊 Health Reports</h1>
 
-<p>Your nutrition progress and health insights.</p>
+
+            <!-- MEALS -->
+
+            <div class="card">
+
+                <h3>
+                    🍽️ Meals
+                </h3>
+
+                <h2>
+                    {{ completed_meals }} / {{ total_meals }}
+                </h2>
+
+            </div>
+
+
+
+            <!-- WEIGHT -->
+
+            <div class="card">
+
+                <h3>
+                    ⚖️ Weight
+                </h3>
+
+                <h2>
+
+                    {% if user.weight %}
+
+                        {{ user.weight|round(1) }} kg
+
+                    {% else %}
+
+                        --
+
+                    {% endif %}
+
+                </h2>
+
+            </div>
+
+
+
+            <!-- BMI -->
+
+            <div class="card">
+
+                <h3>
+                    📏 BMI
+                </h3>
+
+                <h2>
+
+                    {% if bmi %}
+
+                        {{ bmi }}
+
+                    {% else %}
+
+                        --
+
+                    {% endif %}
+
+                </h2>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =========================================
+             TODAY'S REAL PROGRESS
+        ========================================== -->
+
+        <section class="meal">
+
+            <h2>
+                📈 Today's Progress
+            </h2>
+
+
+            <div class="meal-box">
+
+
+                <!-- MEAL COMPLETION -->
+
+                <div class="progress-item">
+
+                    <div class="progress-header">
+
+                        <p>
+                            🍽️ Meal Completion
+                        </p>
+
+                        <span class="progress-percent">
+
+                            {{ meal_percentage }}%
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="progress">
+
+                        <div class="progress-fill"
+                             style="--progress: {{ meal_percentage }}%;">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- CALORIE PROGRESS -->
+
+                <div class="progress-item">
+
+                    <div class="progress-header">
+
+                        <p>
+                            🔥 Calories
+                        </p>
+
+                        <span class="progress-percent">
+
+                            {{ nutrition.calories|round|int }}
+                            /
+                            {{ calorie_target }}
+                            kcal
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="progress">
+
+                        <div class="progress-fill"
+                             style="--progress: {{ calorie_percentage }}%;">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- PROTEIN -->
+
+                <div class="progress-item">
+
+                    <div class="progress-header">
+
+                        <p>
+                            💪 Protein
+                        </p>
+
+                        <span class="progress-percent">
+
+                            {{ nutrition.protein|round(1) }}
+                            /
+                            {{ protein_target|round(1) }}
+                            g
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="progress">
+
+                        <div class="progress-fill"
+                            style="--progress: {{ water_percentage }}%;">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- WATER -->
+
+                <div class="progress-item">
+
+                    <div class="progress-header">
+
+                        <p>
+                            💧 Water Intake
+                        </p>
+
+                        <span class="progress-percent">
+
+                            {{ (water_amount / 1000)|round(2) }}
+                            /
+                            {{ (water_target / 1000)|round(2) }}
+                            L
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="progress">
+
+                        <div class="progress-fill"
+                             style="--progress: {{ protein_percentage }}%;">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- BUDGET -->
+
+                <div class="progress-item">
+
+                    <div class="progress-header">
+
+                        <p>
+                            💰 Daily Budget
+                        </p>
+
+                        <span class="progress-percent">
+
+                            ₹{{ daily_cost|round(0)|int }}
+
+                            /
+
+                            ₹{{ daily_budget|round(0)|int }}
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="progress">
+
+                        <div class="progress-fill"
+                              style="--progress: {{ budget_percentage|default(0) }}%;">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================================
+             TODAY'S NUTRITION
+        ========================================== -->
+
+        <section class="meal">
+
+            <h2>
+                🥗 Today's Nutrition
+            </h2>
+
+
+            <div class="meal-box">
+
+
+                <!-- CALORIES -->
+
+                <div class="progress-item">
+
+                    <div class="progress-header">
+
+                        <p>
+                            🔥 Calories Consumed
+                        </p>
+
+                        <span class="progress-percent">
+
+                            {{ nutrition.calories|round|int }}
+                            kcal
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- PROTEIN -->
+
+                <div class="progress-item">
+
+                    <div class="progress-header">
+
+                        <p>
+                            💪 Protein Consumed
+                        </p>
+
+                        <span class="progress-percent">
+
+                            {{ nutrition.protein|round(1) }}
+                            g
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- CARBS -->
+
+                <div class="progress-item">
+
+                    <div class="progress-header">
+
+                        <p>
+                            🍞 Carbohydrates
+                        </p>
+
+                        <span class="progress-percent">
+
+                            {{ nutrition.carbs|round(1) }}
+                            g
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- FAT -->
+
+                <div class="progress-item">
+
+                    <div class="progress-header">
+
+                        <p>
+                            🥑 Fat
+                        </p>
+
+                        <span class="progress-percent">
+
+                            {{ nutrition.fat|round(1) }}
+                            g
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- FIBER -->
+
+                <div class="progress-item">
+
+                    <div class="progress-header">
+
+                        <p>
+                            🌾 Fiber
+                        </p>
+
+                        <span class="progress-percent">
+
+                            {{ nutrition.fiber|round(1) }}
+                            g
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================================
+             AI HEALTH SUMMARY
+        ========================================== -->
+
+        <section class="tip">
+
+            <h2>
+                🤖 AI Health Summary
+            </h2>
+
+
+            <p>
+
+                {{ health_status }}
+
+                {% if total_meals > 0 %}
+
+                    You have completed
+                    {{ completed_meals }}
+                    out of
+                    {{ total_meals }}
+                    planned meals today.
+
+                    Your current meal progress is
+                    {{ meal_percentage }}%.
+
+                {% endif %}
+
+
+                {% if nutrition.protein < protein_target %}
+
+                    You still need approximately
+                    {{ (protein_target - nutrition.protein)|round(1) }}
+                    g of protein to reach your daily target.
+
+                {% else %}
+
+                    You have reached your daily protein target. 💪
+
+                {% endif %}
+
+
+                {% if water_amount < water_target %}
+
+                    Your water intake is currently
+                    {{ (water_amount / 1000)|round(2) }}
+                    L.
+
+                {% else %}
+
+                    Your hydration target has been reached. 💧
+
+                {% endif %}
+
+
+                {% if daily_budget > 0 %}
+
+                    {% if daily_cost < daily_budget %}
+
+                        You have ₹{{ (daily_budget - daily_cost)|round(0)|int }}
+                        remaining from your daily meal budget.
+
+                    {% else %}
+
+                        Your daily meal budget has been reached.
+
+                    {% endif %}
+
+                {% endif %}
+
+            </p>
+
+        </section>
+
+
+    </main>
 
 </div>
 
-</header>
 
-<div class="cards">
 
-<div class="card">
-<h3>🔥 Calories</h3>
-<h2>1820 kcal</h2>
-</div>
+<!-- =========================================================
+     LIVE REPORT UPDATE
+========================================================== -->
 
-<div class="card">
-<h3>💧 Water</h3>
-<h2>2.3 L</h2>
-</div>
+<script>
 
-<div class="card">
-<h3>⚖ Weight</h3>
-<h2>64 kg</h2>
-</div>
+async function updateReport() {
 
-<div class="card">
-<h3>📏 BMI</h3>
-<h2>22.4</h2>
-</div>
+    try {
 
-</div>
+        const response = await fetch(
+            "/api/daily-progress",
+            {
+                method: "GET",
+                headers: {
+                    "X-Requested-With": "XMLHttpRequest"
+                }
+            }
+        );
 
-<section class="meal">
 
-<h2>📈 Weekly Progress</h2>
+        if (!response.ok) {
+            return;
+        }
 
-<div class="meal-box">
 
-<p>Calories Goal</p>
+        const data = await response.json();
 
-<div class="progress">
-<div class="progress-fill" style="width:80%"></div>
-</div>
 
-<br>
+        if (!data.success) {
+            return;
+        }
 
-<p>Water Intake</p>
 
-<div class="progress">
-<div class="progress-fill" style="width:70%"></div>
-</div>
+        /*
+         * Reload the report when daily data changes.
+         *
+         * This keeps the existing report design exactly
+         * the same while showing fresh database values.
+         */
 
-<br>
+    } catch (error) {
 
-<p>Protein Intake</p>
+        console.log(
+            "Report update error:",
+            error
+        );
 
-<div class="progress">
-<div class="progress-fill" style="width:90%"></div>
-</div>
+    }
 
-<br>
+}
 
-<p>Exercise Goal</p>
 
-<div class="progress">
-<div class="progress-fill" style="width:60%"></div>
-</div>
+updateReport();
 
-</div>
-
-</section>
-
-<section class="tip">
-
-<h2>🤖 AI Health Summary</h2>
-
-<p>
-
-Great work! 🎉
-
-Your calorie intake is within the recommended range.
-
-Increase your water intake slightly and maintain regular exercise to achieve your health goals.
-
-</p>
-
-</section>
-
-</main>
-
-</div>
+</script>
 
 </body>
 

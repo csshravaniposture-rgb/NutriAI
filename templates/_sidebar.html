@@ -1,0 +1,86 @@
+<!-- =====================================================
+     SHARED SIDEBAR — included on every page
+     Do not copy/paste this markup into other templates.
+     Edit this ONE file (and static/css/sidebar.css) to
+     change the sidebar everywhere at once.
+====================================================== -->
+<aside class="sidebar">
+
+    <div class="brand">
+
+        <div class="brand-icon">
+            🥑
+        </div>
+
+        <div class="brand-text">
+            <h2>Nutri<span>AI</span></h2>
+            <small>SMART NUTRITION</small>
+        </div>
+
+    </div>
+
+
+    <nav class="navigation">
+
+        <a href="{{ url_for('dashboard') }}" class="nav-item{{ ' active' if request.endpoint == 'dashboard' else '' }}">
+            <span>⌂</span>
+            <label>Dashboard</label>
+        </a>
+
+        <a href="{{ url_for('mealplanner') }}" class="nav-item{{ ' active' if request.endpoint == 'mealplanner' else '' }}">
+            <span>🍽</span>
+            <label>Meal Planner</label>
+        </a>
+
+        <a href="{{ url_for('nutrition') }}" class="nav-item{{ ' active' if request.endpoint == 'nutrition' else '' }}">
+            <span>🥗</span>
+            <label>Nutrition</label>
+        </a>
+
+        <a href="{{ url_for('recipe') }}" class="nav-item{{ ' active' if request.endpoint == 'recipe' else '' }}">
+            <span>🤖</span>
+            <label>AI Recipes</label>
+        </a>
+
+        <a href="{{ url_for('grocery') }}" class="nav-item{{ ' active' if request.endpoint == 'grocery' else '' }}">
+            <span>🛒</span>
+            <label>Grocery</label>
+        </a>
+
+        <a href="{{ url_for('report') }}" class="nav-item{{ ' active' if request.endpoint == 'report' else '' }}">
+            <span>📊</span>
+            <label>My Report</label>
+        </a>
+
+        <a href="{{ url_for('profile') }}" class="nav-item{{ ' active' if request.endpoint == 'profile' else '' }}">
+            <span>👤</span>
+            <label>Profile</label>
+        </a>
+
+    </nav>
+
+
+    <div class="sidebar-bottom">
+
+        <div class="mini-tip">
+
+            <div class="tip-icon">✨</div>
+
+            <div>
+                <strong>Daily Tip</strong>
+                <p>Stay hydrated and eat mindfully.</p>
+            </div>
+
+        </div>
+
+
+        <a href="{{ url_for('logout') }}" class="logout">
+
+            <span>↪</span>
+            <label>Logout</label>
+
+        </a>
+
+    </div>
+
+</aside>

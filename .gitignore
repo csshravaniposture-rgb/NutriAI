@@ -1,0 +1,5 @@
+.env
+*.lnk
+__pycache__/
+*.pyc
+instance/

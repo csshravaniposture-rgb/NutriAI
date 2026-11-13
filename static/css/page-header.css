@@ -1,0 +1,138 @@
+/* =====================================================
+   NUTRIAI — SHARED PAGE HEADER (topbar)
+   Used on: mealplanner, nutrition, profile, recipe, report.
+   This is the ONLY place this header's styling should live.
+===================================================== */
+
+.topbar {
+    min-height: 82px;
+
+    padding: 17px 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.055);
+
+    background:
+        rgba(6, 20, 14, 0.72);
+
+    backdrop-filter: blur(20px);
+
+    position: sticky;
+    top: 0;
+
+    z-index: 50;
+}
+
+.topbar-content {
+    display: flex;
+    align-items: center;
+
+    gap: 13px;
+}
+
+.topbar-icon {
+    width: 46px;
+    height: 46px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 14px;
+
+    background:
+        rgba(149, 213, 91, 0.10);
+
+    border:
+        1px solid rgba(149, 213, 91, 0.16);
+
+    font-size: 22px;
+}
+
+.topbar h1 {
+    font-size: 21px;
+    font-weight: 800;
+    letter-spacing: -0.4px;
+}
+
+.topbar p {
+    margin-top: 3px;
+
+    color: #82998d;
+
+    font-size: 11px;
+}
+
+
+/* AI / STATUS PILL */
+
+.ai-status {
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 9px 14px;
+
+    border-radius: 30px;
+
+    background:
+        rgba(149, 213, 91, 0.07);
+
+    border:
+        1px solid rgba(149, 213, 91, 0.15);
+
+    color: #9be765;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+.status-dot {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #9be765;
+
+    box-shadow:
+        0 0 12px rgba(155, 231, 101, 0.8);
+
+    animation: nutriai-pulse 1.8s infinite;
+}
+
+@keyframes nutriai-pulse {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: .4;
+        transform: scale(.7);
+    }
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 760px) {
+
+    .topbar {
+        padding: 16px 20px;
+    }
+
+    .ai-status {
+        display: none;
+    }
+}

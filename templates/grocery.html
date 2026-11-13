@@ -2,162 +2,801 @@
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grocery Assistant | NutriAI</title>
 
-<title>Grocery Assistant | NutriAI</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/dashboard.css') }}">
 
-<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/sidebar.css') }}">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
 
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <style>
+        .grocery-page {
+            padding: 30px;
+            max-width: 1450px;
+        }
+
+        .grocery-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 25px;
+        }
+
+        .grocery-title h1 {
+            margin: 0 0 6px;
+            color: #f4f8f2;
+            font-size: 30px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .grocery-title h1 span {
+            color: #95d55b;
+        }
+
+        .grocery-title p {
+            margin: 0;
+            color: #82978d;
+            font-size: 12px;
+        }
+
+        .list-count {
+            padding: 8px 13px;
+            border-radius: 9px;
+            background: rgba(149,213,91,0.08);
+            border: 1px solid rgba(149,213,91,0.10);
+            color: #a9e875;
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        /* ADD ITEM */
+
+        .add-section {
+            background: #10291e;
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 17px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .add-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .add-title-icon {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9px;
+            background: rgba(149,213,91,0.10);
+            color: #a9e875;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .add-title h2 {
+            margin: 0;
+            color: #f2f7f2;
+            font-size: 16px;
+        }
+
+        .add-title p {
+            margin: 2px 0 0;
+            color: #70867b;
+            font-size: 10px;
+        }
+
+        .grocery-form {
+            display: grid;
+            grid-template-columns: 1.7fr 1fr auto;
+            gap: 10px;
+        }
+
+        .input-box {
+            position: relative;
+        }
+
+        .input-box label {
+            display: block;
+            color: #81968c;
+            font-size: 9px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        .input-box input {
+            width: 100%;
+            height: 43px;
+            padding: 0 12px;
+            box-sizing: border-box;
+            background: #081b13;
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 9px;
+            outline: none;
+            color: #edf5ef;
+            font-family: 'Outfit', sans-serif;
+            font-size: 12px;
+            transition: 0.2s;
+        }
+
+        .input-box input::placeholder {
+            color: #4f655b;
+        }
+
+        .input-box input:focus {
+            border-color: rgba(149,213,91,0.55);
+            box-shadow: 0 0 0 3px rgba(149,213,91,0.05);
+        }
+
+        .add-btn {
+            height: 43px;
+            align-self: end;
+            padding: 0 22px;
+            border: none;
+            border-radius: 9px;
+            background: #95d55b;
+            color: #10210f;
+            font-family: 'Outfit', sans-serif;
+            font-size: 11px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .add-btn:hover {
+            background: #a9e875;
+            transform: translateY(-1px);
+        }
+
+        /* MAIN GRID */
+
+        .grocery-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 280px;
+            gap: 20px;
+            align-items: start;
+        }
+
+        .list-panel {
+            min-width: 0;
+        }
+
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .section-heading h2 {
+            margin: 0;
+            color: #f1f7f1;
+            font-size: 18px;
+            font-weight: 750;
+        }
+
+        .section-heading span {
+            color: #71877d;
+            font-size: 10px;
+        }
+
+        /* GROCERY CARD */
+
+        .grocery-card {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 18px;
+            background: #0e241a;
+            border: 1px solid rgba(255,255,255,0.055);
+            border-radius: 14px;
+            padding: 16px 17px;
+            margin-bottom: 10px;
+            transition: 0.22s;
+        }
+
+        .grocery-card:hover {
+            border-color: rgba(149,213,91,0.16);
+            transform: translateY(-1px);
+        }
+
+        .product-info {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            min-width: 0;
+        }
+
+        .product-icon {
+            width: 47px;
+            height: 47px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            background: rgba(149,213,91,0.08);
+            border: 1px solid rgba(149,213,91,0.08);
+            font-size: 22px;
+        }
+
+        .product-details {
+            min-width: 0;
+        }
+
+        .product-details h3 {
+            margin: 0 0 5px;
+            color: #edf5ee;
+            font-size: 14px;
+            font-weight: 700;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .product-meta {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .quantity {
+            color: #82988d;
+            font-size: 10px;
+        }
+
+        /* SHOPPING LINKS */
+
+        .shopping-area {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .shop-link {
+            min-width: 92px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 9px 11px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 9px;
+            font-weight: 800;
+            transition: 0.2s;
+        }
+
+        .shop-link:hover {
+            transform: translateY(-2px);
+        }
+
+        .blinkit-link {
+            color: #a9e86d;
+            background: rgba(149,213,91,0.08);
+            border: 1px solid rgba(149,213,91,0.13);
+        }
+
+        .blinkit-link:hover {
+            background: rgba(149,213,91,0.15);
+        }
+
+        .zepto-link {
+            color: #d8a9ff;
+            background: rgba(177,105,255,0.07);
+            border: 1px solid rgba(177,105,255,0.12);
+        }
+
+        .zepto-link:hover {
+            background: rgba(177,105,255,0.14);
+        }
+
+        .remove-link {
+            width: 31px;
+            height: 31px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            color: #c87979;
+            background: rgba(255,100,100,0.04);
+            border: 1px solid rgba(255,100,100,0.07);
+            text-decoration: none;
+            font-size: 12px;
+            transition: 0.2s;
+        }
+
+        .remove-link:hover {
+            color: #ff9999;
+            background: rgba(255,100,100,0.10);
+        }
+
+        /* SHOPPING OVERVIEW */
+
+        .shopping-summary {
+            position: sticky;
+            top: 25px;
+            background: #10291e;
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 16px;
+            padding: 19px;
+        }
+
+        .summary-heading {
+            color: #f0f6f0;
+            font-size: 15px;
+            font-weight: 750;
+            margin-bottom: 18px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 11px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.045);
+        }
+
+        .summary-row:last-of-type {
+            border-bottom: none;
+        }
+
+        .summary-row span:first-child {
+            color: #80958b;
+            font-size: 10px;
+        }
+
+        .summary-row span:last-child {
+            color: #dce8df;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .shopping-help {
+            margin-top: 18px;
+            padding: 13px;
+            background: rgba(149,213,91,0.045);
+            border: 1px solid rgba(149,213,91,0.07);
+            border-radius: 10px;
+        }
+
+        .shopping-help strong {
+            display: block;
+            color: #a9e875;
+            font-size: 10px;
+            margin-bottom: 5px;
+        }
+
+        .shopping-help p {
+            margin: 0;
+            color: #71877d;
+            font-size: 9px;
+            line-height: 1.6;
+        }
+
+        /* EMPTY STATE */
+
+        .empty-state {
+            background: #0e241a;
+            border: 1px dashed rgba(255,255,255,0.08);
+            border-radius: 15px;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .empty-icon {
+            width: 58px;
+            height: 58px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 13px;
+            background: rgba(149,213,91,0.07);
+            border-radius: 15px;
+            font-size: 25px;
+        }
+
+        .empty-state h3 {
+            margin: 0 0 5px;
+            color: #e8f2e9;
+            font-size: 16px;
+        }
+
+        .empty-state p {
+            margin: 0;
+            color: #71877c;
+            font-size: 10px;
+        }
+
+        /* RESPONSIVE */
+
+        .main-content {
+            margin-left: 255px;
+        }
+
+        @media (max-width: 1100px) {
+            .grocery-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .shopping-summary {
+                position: static;
+            }
+        }
+
+        @media (max-width: 850px) {
+            .grocery-form {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .add-btn {
+                width: 100%;
+            }
+
+            .grocery-card {
+                grid-template-columns: 1fr;
+            }
+
+            .shopping-area {
+                justify-content: flex-start;
+            }
+        }
+
+        @media (max-width: 760px) {
+            .main-content {
+                margin-left: 75px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .grocery-page {
+                padding: 20px 14px;
+            }
+
+            .grocery-top {
+                align-items: flex-start;
+            }
+
+            .grocery-title h1 {
+                font-size: 24px;
+            }
+
+            .grocery-form {
+                grid-template-columns: 1fr;
+            }
+
+            .shopping-area {
+                flex-wrap: wrap;
+            }
+
+            .shop-link {
+                flex: 1;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="dashboard-container">
 
-<!-- Sidebar -->
+    {% include "_sidebar.html" %}
 
-<!-- Sidebar -->
+    <main class="main-content">
 
-<aside class="sidebar">
+        <div class="grocery-page">
 
-    <h2>🥑 NutriAI</h2>
+            <!-- PAGE HEADER -->
 
-    <ul>
+            <div class="grocery-top">
 
-        <li><a href="{{ url_for('dashboard') }}">🏠 Dashboard</a></li>
+                <div class="grocery-title">
 
-        <li><a href="{{ url_for('mealplanner') }}">🍽 Meal Planner</a></li>
+                    <h1>
+                        Grocery <span>Assistant</span>
+                    </h1>
 
-        <li><a href="{{ url_for('nutrition') }}">🥗 Nutrition Analyzer</a></li>
+                    <p>
+                        Everything you need for your meals, in one place.
+                    </p>
 
-        <li><a href="{{ url_for('recipe') }}">🍲 Recipe Generator</a></li>
+                </div>
 
-        <li class="active"><a href="{{ url_for('grocery') }}">🛒 Grocery Assistant</a></li>
+                <div class="list-count">
+                    {{ grocery_items|length }} ITEMS
+                </div>
 
-        <li><a href="{{ url_for('report') }}">📊 Reports</a></li>
+            </div>
 
-        <li><a href="{{ url_for('profile') }}">👤 Profile</a></li>
+            <!-- ADD ITEM -->
 
-        <li><a href="{{ url_for('home') }}">🚪 Logout</a></li>
+            <section class="add-section">
 
-    </ul>
+                <div class="add-title">
 
-</aside>
+                    <div class="add-title-icon">
+                        +
+                    </div>
 
-<!-- Main -->
+                    <div>
 
-<main class="main">
+                        <h2>
+                            Add to your grocery list
+                        </h2>
 
-<header class="topbar">
+                        <p>
+                            Add the items and quantities you need.
+                        </p>
 
-<div>
+                    </div>
 
-<h1>🛒 Grocery Assistant</h1>
+                </div>
 
-<p>Create smart grocery lists and estimate your shopping budget.</p>
+                <form
+                    method="POST"
+                    action="{{ url_for('grocery') }}"
+                    class="grocery-form"
+                >
 
-</div>
+                    <div class="input-box">
 
-</header>
+                        <label>Grocery Item</label>
 
-<div class="nutrition-search">
+                        <input
+                            type="text"
+                            name="item"
+                            placeholder="e.g. Rice, Apple, Milk"
+                            required
+                        >
 
-<input type="text" placeholder="Search grocery item...">
+                    </div>
 
-<button class="generate-btn">➕ Add Item</button>
+                    <div class="input-box">
 
-</div>
+                        <label>Quantity</label>
 
-<section class="meal">
+                        <input
+                            type="text"
+                            name="quantity"
+                            placeholder="e.g. 1 kg"
+                            required
+                        >
 
-<h2>Today's Grocery List</h2>
+                    </div>
 
-<div class="meal-box">
+                    <button
+                        type="submit"
+                        class="add-btn"
+                    >
+                        + Add Item
+                    </button>
 
-<table class="grocery-table">
+                </form>
 
-<tr>
+            </section>
 
-<th>Item</th>
+            <!-- GROCERY CONTENT -->
 
-<th>Quantity</th>
+            <div class="grocery-layout">
 
-<th>Price</th>
+                <!-- GROCERY LIST -->
 
-</tr>
+                <section class="list-panel">
 
-<tr>
+                    <div class="section-heading">
 
-<td>🥚 Eggs</td>
+                        <h2>Your Shopping List</h2>
 
-<td>12</td>
+                        <span>Choose where to shop</span>
+
+                    </div>
+
+                    {% if grocery_items %}
+
+                        {% for grocery in grocery_items %}
 
-<td>₹90</td>
+                            <div class="grocery-card">
 
-</tr>
+                                <!-- PRODUCT INFORMATION -->
 
-<tr>
+                                <div class="product-info">
 
-<td>🍅 Tomatoes</td>
+                                    <div class="product-icon">
 
-<td>1 kg</td>
+                                        {% set item_name = grocery.item|lower %}
 
-<td>₹40</td>
+                                        {% if 'apple' in item_name %}
+                                            🍎
+                                        {% elif 'banana' in item_name %}
+                                            🍌
+                                        {% elif 'milk' in item_name %}
+                                            🥛
+                                        {% elif 'egg' in item_name %}
+                                            🥚
+                                        {% elif 'bread' in item_name %}
+                                            🍞
+                                        {% elif 'rice' in item_name %}
+                                            🍚
+                                        {% elif 'chicken' in item_name %}
+                                            🍗
+                                        {% elif 'tomato' in item_name %}
+                                            🍅
+                                        {% elif 'potato' in item_name %}
+                                            🥔
+                                        {% elif 'carrot' in item_name %}
+                                            🥕
+                                        {% elif 'spinach' in item_name %}
+                                            🥬
+                                        {% elif 'broccoli' in item_name %}
+                                            🥦
+                                        {% elif 'orange' in item_name %}
+                                            🍊
+                                        {% elif 'mango' in item_name %}
+                                            🥭
+                                        {% elif 'grape' in item_name %}
+                                            🍇
+                                        {% elif 'paneer' in item_name %}
+                                            🧀
+                                        {% else %}
+                                            🛒
+                                        {% endif %}
 
-</tr>
+                                    </div>
 
-<tr>
+                                    <div class="product-details">
 
-<td>🍚 Rice</td>
+                                        <h3>
+                                            {{ grocery.item }}
+                                        </h3>
 
-<td>5 kg</td>
+                                        <div class="product-meta">
 
-<td>₹320</td>
+                                            <span class="quantity">
+                                                {{ grocery.quantity }}
+                                            </span>
 
-</tr>
+                                        </div>
 
-<tr>
+                                    </div>
 
-<td>🥛 Milk</td>
+                                </div>
 
-<td>2 L</td>
+                                <!-- SHOPPING LINKS -->
 
-<td>₹120</td>
+                                <div class="shopping-area">
 
-</tr>
+                                    <a
+                                        href="https://blinkit.com/s/?q={{ grocery.item|urlencode }}"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="shop-link blinkit-link"
+                                    >
+                                        Blinkit →
+                                    </a>
 
-<tr>
+                                    <a
+                                        href="https://www.zeptonow.com/search?query={{ grocery.item|urlencode }}"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="shop-link zepto-link"
+                                    >
+                                        Zepto →
+                                    </a>
 
-<td>🥕 Carrots</td>
+                                    <a
+                                        href="{{ url_for('delete_grocery', item_id=grocery.id) }}"
+                                        class="remove-link"
+                                        title="Remove item"
+                                        onclick="return confirm('Remove this item?');"
+                                    >
+                                        ×
+                                    </a>
 
-<td>500 g</td>
+                                </div>
 
-<td>₹35</td>
+                            </div>
 
-</tr>
+                        {% endfor %}
 
-<tr>
+                    {% else %}
 
-<td colspan="2"><strong>Total Estimated Cost</strong></td>
+                        <div class="empty-state">
 
-<td><strong>₹605</strong></td>
+                            <div class="empty-icon">
+                                🛒
+                            </div>
 
-</tr>
+                            <h3>
+                                Your shopping list is empty
+                            </h3>
 
-</table>
+                            <p>
+                                Add your first grocery item above to get started.
+                            </p>
 
-</div>
+                        </div>
 
-</section>
+                    {% endif %}
 
-</main>
+                </section>
+
+                <!-- SHOPPING OVERVIEW -->
+
+                <aside class="shopping-summary">
+
+                    <div class="summary-heading">
+                        Shopping Overview
+                    </div>
+
+                    <div class="summary-row">
+
+                        <span>Items</span>
+
+                        <span>
+                            {{ grocery_items|length }}
+                        </span>
+
+                    </div>
+
+                    <div class="summary-row">
+
+                        <span>Online Stores</span>
+
+                        <span>2</span>
+
+                    </div>
+
+                    <div class="summary-row">
+
+                        <span>Blinkit</span>
+
+                        <span>Available</span>
+
+                    </div>
+
+                    <div class="summary-row">
+
+                        <span>Zepto</span>
+
+                        <span>Available</span>
+
+                    </div>
+
+                    <div class="shopping-help">
+
+                        <strong>Smart Shopping</strong>
+
+                        <p>
+                            Use the Blinkit or Zepto button next to any item
+                            to search for it directly and compare your options.
+                        </p>
+
+                    </div>
+
+                </aside>
+
+            </div>
+
+        </div>
+
+    </main>
 
 </div>
 
 </body>
-
 </html>
